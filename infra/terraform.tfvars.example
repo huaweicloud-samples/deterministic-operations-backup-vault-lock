@@ -1,0 +1,28 @@
+# 复制本文件为 terraform.tfvars 并填写后使用。
+# 凭据通过环境变量注入，不要在此文件写入 AK/SK。
+
+region = "cn-north-4"
+
+# 存储库（务必显式确认）
+vault_name = "demo-cbr-backup-vault"
+vault_type = "server"     # server=云服务器备份 / disk=云硬盘备份
+vault_size = 200          # GB
+
+# Vault Lock（WORM）默认开启；锁定后不可变，apply 前请确认
+vault_lock_enabled = true
+
+# 备份策略
+policy_name             = "demo-cbr-backup-policy"
+policy_time_zone       = "UTC+00:00"
+backup_execution_time  = "01:00"
+backup_delete_after_days = 45
+
+# 加密密钥
+kms_key_alias = "demo-cbr-backup-kms"
+
+# 标签（文档化：给待备份资源打此标签）
+backup_tag_key   = "Backup"
+backup_tag_value = "True"
+
+# 按 ID 绑定到存储库的资源列表（标签批量选择见部署文档）
+backup_resource_ids = []
